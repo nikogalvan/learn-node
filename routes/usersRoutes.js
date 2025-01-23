@@ -1,23 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const usersController = require("../controllers/productsController.js");
+const usersController = require("../controllers/usersController.js");
 
 router.get('/', usersController.consultar);
 
-router.post('/', (req, res) => {
-  res.json({ msg: 'Creando users' });
-});
+router.post('/', usersController.ingresar);
 
 router.route("/:id")
-  .get((req, res) => {
-    res.json({ msg: 'Consulta de un user' });
-  })
-  .put((req, res) => {
-    res.json({ msg: 'Actualizar users' });
-  })
-  .delete((req, res) => {
-    res.json({ msg: 'Borrar users' });
-  });
+  .get(usersController.consultarDetalle)
+  .put(usersController.actualizar)
+  .delete(usersController.eliminar);
 
 module.exports = router;
 
