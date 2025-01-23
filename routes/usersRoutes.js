@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const usersController = require("../controllers/productsController.js");
 
-router.get('/', (req, res) => {
-  res.json({ msg: 'Consulta users' });
-});
+router.get('/', usersController.consultar);
 
 router.post('/', (req, res) => {
   res.json({ msg: 'Creando users' });
