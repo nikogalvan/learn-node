@@ -5,7 +5,7 @@ class ProductsController {
   }
   consultar(_req, res) {
     try {
-      db.query(`SELECT * FROM  ecommerce.product`,
+      db.query(`SELECT * FROM products`,
         (err, rows) => {
           if (err) {
             res.status(400).send(err);
@@ -19,7 +19,7 @@ class ProductsController {
   consultarDetalle(req, res) {
     const { id } = req.params;
     try {
-      db.query(`SELECT * FROM ecommerce.product WHERE product_id = ? `, [id],
+      db.query(`SELECT * FROM products WHERE product_id = ? `, [id],
         (err, rows) => {
           if (err) {
             res.status(400).send(err);
@@ -32,11 +32,11 @@ class ProductsController {
   }
   ingresar(req, res) {
     try {
-      const { name, description, price, stock_quantity } = req.body;
-      db.query(`INSERT INTO ecommerce.product
-      (product_id, name, description, price, stock_quantity)
+      const { product_name, description, price, stock_quantity } = req.body;
+      db.query(`INSERT INTO products
+      (product_id, product_name, description, price, stock_quantity)
       VALUES(NULL, ?,? ,?, ?);`,
-        [name, description, price, stock_quantity], (err, rows) => {
+        [product_name, description, price, stock_quantity], (err, rows) => {
           if (err) {
             res.status(400).send(err);
           }
@@ -49,7 +49,7 @@ class ProductsController {
   eliminar(req, res) {
     const { id } = req.params;
     try {
-      db.query(`DELETE FROM product WHERE product_id = ? `, [id],
+      db.query(`DELETE FROM products WHERE product_id = ? `, [id],
         (err, rows) => {
           if (err) {
             res.status(400).send(err);
@@ -65,10 +65,10 @@ class ProductsController {
 
   actualizar(req, res) {
     try {
-      const { product_id, name, description, price, stock_quantity } = req.body;
-      db.query(`UPDATE product
-      SET name = ?, description = ?, price = ?, stock_quantity = ?
-      WHERE product_id = ?;`, [name, description, price, stock_quantity, product_id],
+      const { product_id, product_name, description, price, stock_quantity } = req.body;
+      db.query(`UPDATE products
+      SET product_name = ?, description = ?, price = ?, stock_quantity = ?
+      WHERE product_id = ?;`, [product_name, description, price, stock_quantity, product_id],
         (err, rows) => {
           if (err) {
             res.status(400).send(err);
